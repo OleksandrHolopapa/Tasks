@@ -1,5 +1,6 @@
 package phoneBookTask2;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class UsePhoneBook {
         Optional<User> userByPhoneNumber = phoneBook.getUserByPhoneNumber("+380681234567");
         userByPhoneNumber.ifPresent(System.out::println);
 
+        System.out.println("Phonebook:");
         System.out.println(phoneBook);
-
     }
 }
