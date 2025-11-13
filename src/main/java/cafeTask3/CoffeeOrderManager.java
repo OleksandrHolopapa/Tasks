@@ -2,6 +2,7 @@ package cafeTask3;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,12 +11,23 @@ public class CoffeeOrderManager {
     private long orderId = 0;
 
     public void addOrder(CoffeeOrder order) {
+        if(botWarning(order)) {
+            System.out.println("Customer "+order.getEmail()+" can be a bot");
+        }
         order.setId(++orderId);
         coffeeOrderList.put(LocalDateTime.now(), order);
     }
 
+    private boolean botWarning(CoffeeOrder order) {
+        return coffeeOrderList.entrySet().stream()
+                .filter(entry -> entry.getValue().getEmail().equals(order.getEmail()))
+                .filter(entry -> entry.getKey().toLocalTime().isAfter(LocalTime.now().minusMinutes(10)))
+                .count()>5;
+    }
+
     public void cancelOrder(long orderId) {
         coffeeOrderList.values().stream()
+                .filter(order -> order.getOrderStatus() == CoffeeOrder.OrderStatus.PENDING)
                 .filter(order -> order.getId() == orderId)
                 .findFirst()
                 .ifPresent(coffeeOrder -> coffeeOrder.setOrderStatus(CoffeeOrder.OrderStatus.CANCELLED));
@@ -62,7 +74,7 @@ public class CoffeeOrderManager {
 
     private long getOrderCountInPeekHours(int startHour, int finishHour) {
         return coffeeOrderList.entrySet().stream()
-                .filter(entry -> entry.getKey().toLocalTime().getHour()>=startHour && entry.getKey().toLocalTime().getHour()<finishHour)
+                .filter(entry -> entry.getKey().toLocalTime().getHour() >= startHour && entry.getKey().toLocalTime().getHour() < finishHour)
                 .count();
     }
 
@@ -75,9 +87,13 @@ public class CoffeeOrderManager {
                 .orElse(0);
     }
 
+    public void exportToCsv() {
+        getLoyalCustomers().forEach(System.out::println);
+    }
+
     @Override
     public String toString() {
         return coffeeOrderList.entrySet().stream().
-                map(entry -> entry.getKey() + " : " + entry.getValue()).collect(Collectors.joining("\n"));
+                map(entry -> entry.getKey().toLocalDate()+" "+entry.getKey().toLocalTime() + " : " + entry.getValue()).collect(Collectors.joining("\n"));
     }
 }

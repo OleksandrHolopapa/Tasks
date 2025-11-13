@@ -2,7 +2,6 @@ package cafeTask3;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class UseCoffeeOrderManager {
     public static void main(String[] args) throws InterruptedException {
@@ -32,9 +31,12 @@ public class UseCoffeeOrderManager {
         coffeeOrderManager.addOrder(new CoffeeOrder("user10@gmail.com", "Macchiato", CoffeeOrder.CoffeeSize.SMALL, 400));
 
         System.out.println(coffeeOrderManager);
+        System.out.println();
+
         System.out.println("Top drinks today:");
         List<String> topDrinksToday = coffeeOrderManager.getTopDrinksToday();
         topDrinksToday.forEach(System.out::println);
+        System.out.println();
 
         coffeeOrderManager.completeOrder(1);
         coffeeOrderManager.completeOrder(2);
@@ -50,12 +52,13 @@ public class UseCoffeeOrderManager {
         coffeeOrderManager.completeOrder(12);
 
         System.out.println("Loyal customers:");
-        Set<String> loyalCustomers = coffeeOrderManager.getLoyalCustomers();
-        loyalCustomers.forEach(System.out::println);
+        coffeeOrderManager.exportToCsv();
+        System.out.println();
 
         System.out.println("Peak hours stats:");
         Map<String, Long> peakHoursStats = coffeeOrderManager.getPeakHoursStats();
         peakHoursStats.forEach((hour, count) -> System.out.println(hour + ": " + count));
+        System.out.println();
 
         System.out.println("Average order price:");
         double averageOrderValue = coffeeOrderManager.getAverageOrderValue();
