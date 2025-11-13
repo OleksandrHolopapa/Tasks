@@ -2,12 +2,11 @@ package cafeTask3;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CoffeeOrderManager {
-    private Map<LocalDateTime, CoffeeOrder> coffeeOrderList = new TreeMap<>();
+    private final Map<LocalDateTime, CoffeeOrder> coffeeOrderList = new TreeMap<>();
     private long orderId = 0;
 
     public void addOrder(CoffeeOrder order) {
@@ -19,18 +18,14 @@ public class CoffeeOrderManager {
         coffeeOrderList.values().stream()
                 .filter(order -> order.getId() == orderId)
                 .findFirst()
-                .ifPresent(coffeeOrder -> {
-                    coffeeOrder.setOrderStatus(CoffeeOrder.OrderStatus.CANCELLED);
-                });
+                .ifPresent(coffeeOrder -> coffeeOrder.setOrderStatus(CoffeeOrder.OrderStatus.CANCELLED));
     }
 
     public void completeOrder(long orderId) {
         coffeeOrderList.values().stream()
                 .filter(order -> order.getId() == orderId)
                 .findFirst()
-                .ifPresent(coffeeOrder -> {
-                    coffeeOrder.setOrderStatus(CoffeeOrder.OrderStatus.COMPLETED);
-                });
+                .ifPresent(coffeeOrder -> coffeeOrder.setOrderStatus(CoffeeOrder.OrderStatus.COMPLETED));
     }
 
     public List<String> getTopDrinksToday() {
