@@ -46,8 +46,8 @@ public class CarWashWork {
                 carWash.findTicketByNumber(client3Wash)
                         .ifPresent(ticket -> System.out.printf("Price of Oleksiy's ticket: %10s%n", ticket.getCost()));
             }
-            carWash.CarWashPayment(client2Wash);
-            carWash.CarWashPayment(client3Wash);
+            carWash.carWashPayment(client2Wash);
+            carWash.carWashPayment(client3Wash);
         }
 
         System.out.println("\nTypes of clients after 101 car washes at Olexiy and Olexander: ");
@@ -80,7 +80,7 @@ public class CarWashWork {
                         ticket.getWashStatus(), ticket.getClient().getName(), ticket.getCost()));
 
         //Оплачуємо
-        washes.forEach(carWash::CarWashPayment);
+        washes.forEach(carWash::carWashPayment);
 
         //якщо все оплачено, то черга порожня
         if (carWash.getTicketQueue().isEmpty()) System.out.println("\nThe queue is empty");

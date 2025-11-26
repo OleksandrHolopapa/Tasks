@@ -59,7 +59,7 @@ public class CarWash {
                 .findFirst().ifPresent(ticket -> ticket.setWashStatus(WashStatus.CANCELLED));
     }
 
-    public void CarWashPayment(long ticketNumber) {
+    public void carWashPayment(long ticketNumber) {
         ticketQueue.stream()
                 .filter(ticket -> ticket.getTicketNumber() == ticketNumber)
                 .findFirst().ifPresent(ticket -> {
