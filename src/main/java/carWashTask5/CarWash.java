@@ -21,7 +21,7 @@ public class CarWash {
         Ticket ticket = new Ticket(client, car, null, washTypes);
         ticket.setTicketNumber(++ticketNumber);
         updateClientDataBase(client, car);
-        addTicketToQueue(client, ticket);
+        addTicketToQueue(ticket);
         return ticketNumber;
     }
 
@@ -90,7 +90,8 @@ public class CarWash {
         if (client.getWashCount() % 10 == 0 && client.getWashCount() > 0) ticket.applyDiscount(10);
     }
 
-    private void addTicketToQueue(Client client, Ticket ticket) {
+    private void addTicketToQueue(Ticket ticket) {
+        Client client = ticket.getClient();
         if (client.getClientType() == ClientType.VIP) {
             int vipCount = (int) ticketQueue.stream().filter(t -> t.getClient().getClientType() == ClientType.VIP).count();
             ticketQueue.add(vipCount, ticket);
