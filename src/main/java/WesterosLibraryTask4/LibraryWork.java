@@ -18,15 +18,15 @@ public class LibraryWork {
         library.addBook("Black Wings, Quick Words", "Maester Galleon", 215, AC, "Maesterly Arts Section, Logistics");
 
         System.out.println("Try to add the book that already exists: ");
-        boolean tryToAdd = library.addBook("The Crimson Book", "Archmaester Vailem", 125, Book.Epoch.AC, "Religion & Philosophy Section");
+        boolean tryToAdd = library.addBook("The Crimson Book", "Archmaester Vailem", 125, AC, "Religion & Philosophy Section");
         System.out.println(tryToAdd);
 
         System.out.println("Try to remove the book that doesn't exist: ");
-        boolean tryToRemove = library.removeBook("The Great White Book ", "Various Scribes", 10, Book.Epoch.AC);
+        boolean tryToRemove = library.removeBook("The Great White Book ", "Various Scribes", 10, AC);
         System.out.println(tryToRemove);
 
         System.out.println("Get the book location: ");
-        System.out.println(library.getBookLocation("The Life and Adventures of Elio Gryvas, First Sword of Braavos", "Elio Gryvas", 275, Book.Epoch.AC));
+        System.out.println(library.getBookLocation("The Life and Adventures of Elio Gryvas, First Sword of Braavos", "Elio Gryvas", 275, AC));
 
         System.out.println("Print all books: ");
         library.printAllBooks();
